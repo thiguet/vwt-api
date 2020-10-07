@@ -5,7 +5,7 @@ import { sequelize } from './sqlz/';
 
 async function bootstrap() {
     try {
-        await sequelize.sync({ force: true });
+        await sequelize.sync();
 
         $log.debug('Start server...');
         const platform = await PlatformExpress.bootstrap(Server, {

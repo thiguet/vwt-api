@@ -10,13 +10,12 @@ const rootDir = __dirname;
 @Configuration({
     port: 8000,
     rootDir,
-    acceptMimes: ['application/json'],
 })
 export default class Server {
     @Inject()
     app!: PlatformApplication;
 
-    @Configuration()
+    @Configuration({})
     settings!: Configuration;
 
     /**

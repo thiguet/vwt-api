@@ -1,6 +1,6 @@
 import { PlatformTest } from '@tsed/common';
-import { Users } from '../../src/controllers/Users';
-import UserSqlz from '../../src/sqlz/models/User';
+import UserController from '../../src/controllers/Users';
+import { Users as UserModel } from '../../src/sqlz/models/Users';
 import { User } from '../../src/controllers/models';
 import faker from 'faker';
 
@@ -17,10 +17,10 @@ describe('UsersService', () => {
     beforeEach(PlatformTest.create);
     afterEach(PlatformTest.reset);
     describe('findAll()', () => {
-        it('should call all users from db.', () => {
-            jest.spyOn(UserSqlz, 'findAll').mockReturnValue(users as any);
-            const service = PlatformTest.get<Users>(Users);
-            expect(service.findAll()).toEqual(users);
+        it('should call all users from db.', async () => {
+            jest.spyOn(UserModel, 'findAll').mockReturnValue(users as any);
+            const service = PlatformTest.get<UserController>(UserController);
+            expect(await service.findAll()).toEqual(users);
         });
     });
 });

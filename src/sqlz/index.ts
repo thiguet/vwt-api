@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+
 import 'dotenv/config';
 
 export const sequelize = new Sequelize({
@@ -7,7 +8,7 @@ export const sequelize = new Sequelize({
     host: process.env.DB_HOST,
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
-    port: 5433,
+    port: 15432,
     define: {
         timestamps: true,
     },
