@@ -1,0 +1,60 @@
+{
+    "name": "vwt-api",
+    "version": "1.0.0",
+    "description": "An API built for supporting VWT features.",
+    "main": "index.js",
+    "dependencies": {
+        "@tsed/common": "^5.65.4",
+        "@tsed/core": "^5.65.4",
+        "@tsed/platform-express": "^5.65.4",
+        "@types/compression": "^1.7.0",
+        "@types/cookie-parser": "^1.4.2",
+        "@types/express": "^4.17.8",
+        "@types/method-override": "0.0.31",
+        "bcrypt": "^5.0.0",
+        "compression": "^1.7.4",
+        "cookie-parser": "^1.4.5",
+        "express": "^4.17.1",
+        "method-override": "^3.0.0",
+        "pg": "^8.4.0",
+        "pg-hstore": "^2.3.3",
+        "sequelize": "^6.3.5"
+    },
+    "devDependencies": {
+        "@types/faker": "^5.1.2",
+        "@types/jest": "^26.0.14",
+        "@types/node": "^14.11.2",
+        "@types/supertest": "^2.0.10",
+        "@types/swagger-ui-express": "^4.1.2",
+        "faker": "^5.1.0",
+        "jest": "^26.4.2",
+        "nodemon": "^2.0.4",
+        "sequelize-mock": "^0.10.2",
+        "sequelize-typescript": "^1.1.0",
+        "supertest": "^5.0.0",
+        "swagger-ui-express": "^4.1.4",
+        "ts-jest": "^26.4.0",
+        "ts-node": "^9.0.0",
+        "tslint": "^6.1.3",
+        "tsoa": "^3.2.1",
+        "typescript": "^4.0.3"
+    },
+    "scripts": {
+        "dev": "nodemon --watch \"src/\" --exec \"ts-node src/index.ts\" -e ts",
+        "test": "jest",
+        "test:watch": "jest --watchAll",
+        "test:coverage": "jest --coverage",
+        "build": "npm test && tsc",
+        "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+        "start": "node ."
+    },
+    "jest": {
+        "testEnvironment": "node"
+    },
+    "windows": {
+        "program": "${workspaceFolder}/node_modules/jest-cli/bin/jest"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
