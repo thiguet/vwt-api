@@ -12,3 +12,8 @@ export interface User {
 }
 
 export type UserResponse = Diff<User, 'id' | 'pass'>;
+export interface LoginResponse {
+    auth: boolean;
+    token?: string;
+    error?: string;
+}
