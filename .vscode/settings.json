@@ -1,5 +1,4 @@
 {
     "god.tsconfig": "./tsconfig.json",
-    "jest.debugMode": true,
-    "jest.pathToJest": "jest"
+    "jest.debugMode": true
 }
