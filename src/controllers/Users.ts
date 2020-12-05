@@ -1,6 +1,8 @@
-import { Controller, Get } from '@tsed/common';
+import { Controller, Get, Post, Request } from '@tsed/common';
 import { Users as UserModel } from '../sqlz/models/User';
-import { User } from './models';
+import { LoginResponse, User } from './models';
+import jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
 @Controller('/user')
 export default class UsersController {
     @Get()
@@ -8,32 +10,23 @@ export default class UsersController {
         return (await UserModel.findAll()).map((user: User) => user as User);
     }
 
-    // @Post('/login')
-    // async login(req: Request, @Res() res: Response): Promise<LoginResponse> {
-    //     const { email, pass } = req.body;
-
-    //     const user = await UserModel.findByPk(email);
-    //     const salt = String(process.env.SALT);
-
-    //     let resp: LoginResponse;
-
-    //     if (email === user?.email && pass === bcrypt.hashSync(user?.pass, Number(salt))) {
-    //         const id = user?.id;
-
-    //         const token = jwt.sign({ id }, salt, {
-    //             expiresIn: 300, // expires in 5min
-    //         });
-
-    //         resp = { auth: true, token };
-
-    //         return resp;
-    //     }
-
-    //     res.status(500);
-
-    //     return {
-    //         auth: false,
-    //         error: 'Login inválido!',
-    //     };
-    // }
+    @Post('/login')
+    async login(req: Request): Promise<LoginResponse> {
+        const { email, pass } = req.body;
+        let user = await UserModel.findByPk(email);
+        if (user) {
+            const salt = String(process.env.SALT || 10);
+            const id = user.id;
+            if (email === user.email && bcrypt.compareSync(pass, user.pass + '')) {
+                const token = jwt.sign({ id }, salt, {
+                    expiresIn: 300,
+                });
+                return { auth: true, token };
+            }
+        }
+        return {
+            auth: false,
+            error: 'Login inválido!',
+        };
+    }
 }
