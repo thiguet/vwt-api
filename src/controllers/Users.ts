@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Request } from '@tsed/common';
-import { Users as UserModel } from '../sqlz/models/User';
+import { Authorize } from '@tsed/passport';
+import { Users as UserModel } from '../sqlz/models/Users';
 import { LoginResponse, User } from './models';
 import jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 @Controller('/user')
 export default class UsersController {
+    @Authorize()
     @Get()
     async findAll(): Promise<User[]> {
         return (await UserModel.findAll()).map((user: User) => user as User);

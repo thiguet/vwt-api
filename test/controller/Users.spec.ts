@@ -29,6 +29,7 @@ describe('UsersService', () => {
         service = await PlatformTest.invoke<UserController>(UserController);
     });
     afterEach(PlatformTest.reset);
+
     it('should get all users from db.', async () => {
         jest.spyOn(UserModel, 'findAll').mockReturnValue(users as any);
 
