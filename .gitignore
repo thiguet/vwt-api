@@ -3,4 +3,4 @@ src/**/*.js
 src/**/*.map
 coverage
 .env
-
+src/passport/config.ts
