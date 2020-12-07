@@ -1,20 +1,33 @@
 import { Configuration, Inject } from '@tsed/di';
 import { PlatformApplication } from '@tsed/common';
-import '@tsed/platform-express'; // /!\ keep this import
-import { GlobalAcceptMimesMiddleware } from '@tsed/platform-express';
+import '@tsed/platform-express';
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
 import '@tsed/ajv';
+import '@tsed/passport';
 export const rootDir = __dirname;
-
+import session from 'express-session';
+import 'dotenv/config';
+import '@tsed/swagger';
+const SECRET = process.env.SECRET || '';
 @Configuration({
     rootDir,
+    swagger: [
+        {
+            path: '/v2/docs',
+            specVersion: '2.0',
+        },
+        {
+            path: '/v3/docs',
+            specVersion: '3.0.1',
+        },
+    ],
     acceptMimes: ['application/json'],
     httpPort: process.env.PORT || 8084,
-    httpsPort: false, // CHANGE
+    httpsPort: false,
     mount: {
         '/rest': [`${rootDir}/services/**/*.ts`],
     },
@@ -30,7 +43,6 @@ export class Server {
     $beforeRoutesInit() {
         this.app
             .use(cors())
-            .use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())
@@ -38,6 +50,18 @@ export class Server {
             .use(
                 bodyParser.urlencoded({
                     extended: true,
+                })
+            )
+            .use(
+                session({
+                    secret: SECRET,
+                    resave: true,
+                    saveUninitialized: true,
+                    cookie: {
+                        path: '/',
+                        httpOnly: true,
+                        secure: false,
+                    },
                 })
             );
     }
