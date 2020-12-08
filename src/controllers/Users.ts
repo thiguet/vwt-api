@@ -10,7 +10,7 @@ export default class UsersController {
     @Authorize()
     @Get()
     @Summary('Summary of this route')
-    @Description('Return a calendar from the given id')
+    @Description('Return a user from the given id')
     @(Returns(404).Description('Not found'))
     async findAll(): Promise<User[]> {
         return (await UserModel.findAll()).map((user: User) => user as User);
@@ -19,7 +19,7 @@ export default class UsersController {
     @Post('/login')
     async login(req: Request): Promise<LoginResponse> {
         const { email, pass } = req.body;
-        let user = await UserModel.findByPk(email);
+        const user = await UserModel.findByPk(email);
         if (user) {
             const salt = String(process.env.SALT || 10);
             const id = user.id;
