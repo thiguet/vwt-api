@@ -2,11 +2,12 @@
     "compilerOptions": {
         "target": "es2015",
         "lib": ["es2015"],
-        "types": ["reflect-metadata"],
+        "types": ["reflect-metadata", "jest"],
         "module": "commonjs",
         "moduleResolution": "node",
         "sourceMap": true,
         "declaration": false,
+        "typeRoots": ["./types", "./node_modules/@types"],
         "baseUrl": ".",
         "paths": {
             "*": ["node_modules/*"]
@@ -22,7 +23,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
-    "include": ["src/**/*.ts", "src/index.ts"],
+    "include": ["test/**/*.ts", "src/**/*.ts", "src/index.ts"],
     "exclude": ["node_modules", "**/*.spec.ts"],
     "files": ["./node_modules/@types/node/index.d.ts"]
 }
