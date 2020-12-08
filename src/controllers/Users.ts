@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Request } from '@tsed/common';
 import { Authorize } from '@tsed/passport';
-import { Users as UserModel } from '../sqlz/models/Users';
+import { Description, Returns, Summary } from '@tsed/schema';
+import UserModel from '../sqlz/models/User.model';
 import { LoginResponse, User } from './models';
 import jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
@@ -8,6 +9,9 @@ import * as bcrypt from 'bcryptjs';
 export default class UsersController {
     @Authorize()
     @Get()
+    @Summary('Summary of this route')
+    @Description('Return a calendar from the given id')
+    @(Returns(404).Description('Not found'))
     async findAll(): Promise<User[]> {
         return (await UserModel.findAll()).map((user: User) => user as User);
     }

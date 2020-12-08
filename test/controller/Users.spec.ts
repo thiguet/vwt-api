@@ -4,6 +4,7 @@ import faker from 'faker';
 import { User } from '../../src/controllers/models';
 import { hashSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import UserModel from '../../src/sqlz/models/User.model';
 
 describe('UsersService', () => {
     let users: User[] = [...Array(faker.random.number({ min: 1, max: 50 }))].map(() => ({
@@ -18,13 +19,10 @@ describe('UsersService', () => {
         email: faker.internet.email(),
         pass: faker.internet.password(),
     };
-    let UserModel: any;
     let service: any;
 
     beforeEach(async () => {
         PlatformTest.create();
-
-        UserModel = require('../../src/sqlz/models/User').Users;
 
         service = await PlatformTest.invoke<UserController>(UserController);
     });

@@ -20,10 +20,6 @@ const SECRET = process.env.SECRET || '';
             path: '/v2/docs',
             specVersion: '2.0',
         },
-        {
-            path: '/v3/docs',
-            specVersion: '3.0.1',
-        },
     ],
     acceptMimes: ['application/json'],
     httpPort: process.env.PORT || 8084,

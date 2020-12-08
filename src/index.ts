@@ -1,11 +1,11 @@
 import { $log } from '@tsed/common';
 import { PlatformExpress } from '@tsed/platform-express';
 import { Server } from './Server';
-// import { sequelize } from './sqlz/';
+import { sequelize } from './sqlz/';
 
 async function bootstrap() {
     try {
-        // await sequelize.sync();
+        await sequelize.sync();
 
         $log.debug('Start server...');
         const platform = await PlatformExpress.bootstrap(Server, {

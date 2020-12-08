@@ -1,5 +1,5 @@
 import { Controller, Get } from '@tsed/common';
-import { Users as UserModel } from '../sqlz/models/Users';
+// import { Users as UserModel } from '../sqlz/models/User';
 import { User } from './models';
 import passport from 'passport';
 
