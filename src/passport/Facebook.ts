@@ -1,15 +1,15 @@
 import passport from 'passport';
-import { Strategy } from 'passport-google-oauth20';
+import { Strategy } from 'passport-facebook';
 import handleUserLogin from './handleUserLogin';
 
 passport.use(
     new Strategy(
         {
-            clientID: `${process.env.GOOGLE_CLIENT_ID}`,
-            clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-            callbackURL: '/auth/google/callback',
+            clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
+            clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
+            callbackURL: '/auth/facebook/callback',
         },
-        async (_accessToken, _refreshToken, profile) => {
+        (_accessToken: any, _refreshToken: any, profile: any) => {
             const email: string = (profile.emails || [])[0].value;
             const name: string = profile.displayName || (profile.name || {}).givenName || '';
             return handleUserLogin(profile.id, email, name);
