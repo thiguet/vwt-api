@@ -8,7 +8,7 @@ import * as bcrypt from 'bcryptjs';
 @Controller('/user')
 export default class UsersController {
     @Authorize()
-    @Get()
+    @Get('s')
     @Summary('Summary of this route')
     @Description('Return a user from the given id')
     @(Returns(404).Description('Not found'))
@@ -23,7 +23,7 @@ export default class UsersController {
         if (user) {
             const salt = String(process.env.SALT || 10);
             const id = user.id;
-            if (email === user.email && bcrypt.compareSync(pass, user.pass + '')) {
+            if (email === user.email && bcrypt.compareSync(pass, `${user.pass}`)) {
                 const token = jwt.sign({ id }, salt, {
                     expiresIn: 300,
                 });

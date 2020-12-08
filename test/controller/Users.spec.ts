@@ -1,4 +1,4 @@
-import { PlatformTest } from '@tsed/common';
+import { PlatformTest, Req, Res } from '@tsed/common';
 import UserController from '../../src/controllers/Users';
 import faker from 'faker';
 import { User } from '../../src/controllers/models';
@@ -6,7 +6,7 @@ import { hashSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import UserModel from '../../src/sqlz/models/User.model';
 
-describe('UsersService', () => {
+describe('Users Controller', () => {
     let users: User[] = [...Array(faker.random.number({ min: 1, max: 50 }))].map(() => ({
         id: faker.random.uuid(),
         name: faker.name.findName(),
@@ -48,7 +48,7 @@ describe('UsersService', () => {
 
         const res = {};
 
-        expect(await service.login((req as unknown) as Request, res as Response)).toEqual({
+        expect(await service.login((req as unknown) as Req, res as Res)).toEqual({
             auth: false,
             error: 'Login inválido!',
         });
@@ -69,7 +69,7 @@ describe('UsersService', () => {
 
         service = PlatformTest.get<UserController>(UserController);
 
-        expect(await service.login((req as unknown) as Request, res as Response)).toEqual({
+        expect(await service.login((req as unknown) as Req, res as Res)).toEqual({
             auth: false,
             error: 'Login inválido!',
         });
@@ -92,7 +92,7 @@ describe('UsersService', () => {
 
         service = PlatformTest.get<UserController>(UserController);
 
-        expect(await service.login((req as unknown) as Request, res as Response)).toEqual({
+        expect(await service.login((req as unknown) as Req, res as Res)).toEqual({
             auth: false,
             error: 'Login inválido!',
         });
@@ -112,7 +112,7 @@ describe('UsersService', () => {
 
         service = PlatformTest.get<UserController>(UserController);
 
-        expect(await service.login((req as unknown) as Request, res as Response)).toEqual({
+        expect(await service.login((req as unknown) as Req, res as Res)).toEqual({
             auth: false,
             error: 'Login inválido!',
         });
@@ -142,7 +142,7 @@ describe('UsersService', () => {
 
         service = PlatformTest.get<UserController>(UserController);
 
-        expect(await service.login((req as unknown) as Request, res as Response)).toEqual({
+        expect(await service.login((req as unknown) as Req, res as Res)).toEqual({
             auth: true,
             token,
         });
