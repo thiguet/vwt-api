@@ -1,18 +1,22 @@
-version: '3'
+version: '3.7'
 
 services:
-    teste-postgres-compose:
+    postgres-compose:
         image: postgres
         environment:
-            POSTGRES_PASSWORD: 'test'
+            POSTGRES_DB: vwt
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: Postgres2019!
         ports:
             - '15432:5432'
         volumes:
-            - ./data:/var/lib/postgresql/data
+            - pg1:/var/lib/postgresql/data
+            - pg2:/etc/postgresql
+            - pg3:/var/log/postgresql
         networks:
             - postgres-compose-network
 
-    teste-pgadmin-compose:
+    pgadmin-compose:
         image: dpage/pgadmin4
         environment:
             PGADMIN_DEFAULT_EMAIL: 'admin@admin.com'
@@ -20,10 +24,18 @@ services:
         ports:
             - '16543:80'
         depends_on:
-            - teste-postgres-compose
+            - postgres-compose
         networks:
             - postgres-compose-network
 
 networks:
     postgres-compose-network:
         driver: bridge
+
+volumes:
+    pg1:
+        driver: local
+    pg2:
+        driver: local
+    pg3:
+        driver: local

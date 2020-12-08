@@ -1,23 +1,36 @@
 import { Configuration, Inject } from '@tsed/di';
 import { PlatformApplication } from '@tsed/common';
-import '@tsed/platform-express'; // /!\ keep this import
-import { GlobalAcceptMimesMiddleware } from '@tsed/platform-express';
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
+import session from 'express-session';
+import 'dotenv/config';
 import '@tsed/ajv';
+import '@tsed/platform-express';
+import '@tsed/passport';
+import '@tsed/swagger';
 export const rootDir = __dirname;
+
+const SECRET = process.env.SECRET || '';
 
 @Configuration({
     rootDir,
-    acceptMimes: ['application/json'],
-    httpPort: process.env.PORT || 8084,
-    httpsPort: false, // CHANGE
+    swagger: [
+        {
+            path: '/v1/docs',
+            specVersion: '3.0.3',
+            outFile: `${rootDir}/spec/swagger.json`,
+        },
+    ],
     mount: {
-        '/rest': [`${rootDir}/services/**/*.ts`],
+        '/': [`${rootDir}/controllers/**/*.ts`],
     },
+    componentsScan: [`${rootDir}/passport/**/*.ts`],
+    passport: {},
+    acceptMimes: ['application/json'],
+    httpPort: process.env.PORT || 8080,
     exclude: ['**/*.spec.ts'],
 })
 export class Server {
@@ -30,7 +43,6 @@ export class Server {
     $beforeRoutesInit() {
         this.app
             .use(cors())
-            .use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())
@@ -38,6 +50,18 @@ export class Server {
             .use(
                 bodyParser.urlencoded({
                     extended: true,
+                })
+            )
+            .use(
+                session({
+                    secret: SECRET,
+                    resave: true,
+                    saveUninitialized: true,
+                    cookie: {
+                        path: '/',
+                        httpOnly: true,
+                        secure: false,
+                    },
                 })
             );
     }

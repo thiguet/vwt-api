@@ -9,7 +9,7 @@ async function bootstrap() {
 
         $log.debug('Start server...');
         const platform = await PlatformExpress.bootstrap(Server, {
-            port: 8080,
+            port: process.env.PORT || 8080,
         });
 
         await platform.listen();

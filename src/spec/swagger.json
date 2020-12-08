@@ -1,0 +1,373 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Api documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/auth/google": {
+      "get": {
+        "operationId": "loginControllerLoginGoogle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "operationId": "loginControllerCallbackGoogle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/facebook": {
+      "get": {
+        "operationId": "loginControllerLoginFacebook",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/facebook/callback": {
+      "get": {
+        "operationId": "loginControllerCallbackFacebook",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/instagram": {
+      "get": {
+        "operationId": "loginControllerLoginInstagram",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/instagram/callback": {
+      "get": {
+        "operationId": "loginControllerCallbackInstagram",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/products": {
+      "get": {
+        "operationId": "productsControllerFindAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Products"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Returns all the products",
+        "summary": "Gets all products",
+        "tags": [
+          "ProductsController"
+        ]
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "operationId": "productsControllerFindByPk",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One Product"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Returns one product by id via GET params",
+        "summary": "Gets one product",
+        "tags": [
+          "ProductsController"
+        ]
+      }
+    },
+    "/product": {
+      "post": {
+        "operationId": "productsControllerNewProduct",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One Product"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Saves and returns one product with the id property setted",
+        "summary": "Add one product",
+        "tags": [
+          "ProductsController"
+        ]
+      },
+      "put": {
+        "operationId": "productsControllerUpdateProduct",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One Product"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Saves and returns the product updating old properties",
+        "summary": "Update one product",
+        "tags": [
+          "ProductsController"
+        ]
+      },
+      "delete": {
+        "operationId": "productsControllerDeleteProduct",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One Product"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Delete the product from the database",
+        "summary": "Deletes one product",
+        "tags": [
+          "ProductsController"
+        ]
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "usersControllerFindAll",
+        "parameters": [],
+        "responses": {
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Return a user from the given id",
+        "summary": "Summary of this route",
+        "tags": [
+          "UsersController"
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "operationId": "usersControllerLogin",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "UsersController"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "LoginController"
+    },
+    {
+      "name": "ProductsController"
+    },
+    {
+      "name": "UsersController"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "NotFound": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "example": "NOT_FOUND",
+            "default": "NOT_FOUND"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message"
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 404,
+            "default": 404
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
+        ]
+      },
+      "GenericError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message"
+          }
+        },
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "message"
+        ]
+      }
+    }
+  }
+}
