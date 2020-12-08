@@ -1,7 +1,7 @@
 import { Model, Column, Table, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
 
 @Table
-export default class Users extends Model<Users> {
+export default class Products extends Model<Products> {
     @AutoIncrement
     @PrimaryKey
     @Column
@@ -11,11 +11,14 @@ export default class Users extends Model<Users> {
     name!: string;
 
     @Column
-    pass!: string;
+    measures!: string;
 
     @Column
-    email!: string;
+    qtd!: number;
 
     @Column
-    appId!: string;
+    minQtd!: number;
+
+    @Column
+    image?: string;
 }
