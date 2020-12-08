@@ -1,6 +1,5 @@
 import { Configuration, Inject } from '@tsed/di';
 import { PlatformApplication } from '@tsed/common';
-import '@tsed/platform-express';
 import bodyParser from 'body-parser';
 import compress from 'compression';
 import cookieParser from 'cookie-parser';
@@ -11,6 +10,7 @@ import '@tsed/passport';
 export const rootDir = __dirname;
 import session from 'express-session';
 import 'dotenv/config';
+import '@tsed/platform-express';
 import '@tsed/swagger';
 const SECRET = process.env.SECRET || '';
 @Configuration({
@@ -21,12 +21,12 @@ const SECRET = process.env.SECRET || '';
             specVersion: '2.0',
         },
     ],
+    mount: {
+        '/': [`${rootDir}/controllers/**/*.ts`],
+    },
     acceptMimes: ['application/json'],
     httpPort: process.env.PORT || 8084,
     httpsPort: false,
-    mount: {
-        '/rest': [`${rootDir}/services/**/*.ts`],
-    },
     exclude: ['**/*.spec.ts'],
 })
 export class Server {
