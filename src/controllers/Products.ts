@@ -11,6 +11,7 @@ export default class ProductsController {
     @Summary('Gets all products')
     @Description('Returns all the products')
     @(Returns(200).Description('Products'))
+    @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async findAll(): Promise<Product[]> {
         return (await ProductsModel.findAll()).map((product: Product) => product);
@@ -21,6 +22,7 @@ export default class ProductsController {
     @Summary('Gets one product')
     @Description('Returns one product by id via GET params')
     @(Returns(200).Description('One Product'))
+    @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async findByPk(req: Request): Promise<Product> {
         return await ProductsModel.findByPk(req.params.id);
@@ -31,6 +33,7 @@ export default class ProductsController {
     @Summary('Add one product')
     @Description('Saves and returns one product with the id property setted')
     @(Returns(200).Description('One Product'))
+    @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async newProduct(req: Request): Promise<Product> {
         const { product } = req.body;
@@ -42,6 +45,7 @@ export default class ProductsController {
     @Summary('Update one product')
     @Description('Saves and returns the product updating old properties')
     @(Returns(200).Description('One Product'))
+    @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async updateProduct(req: Request): Promise<Product> {
         const { product } = req.body;
@@ -57,6 +61,7 @@ export default class ProductsController {
     @Summary('Deletes one product')
     @Description('Delete the product from the database')
     @(Returns(200).Description('One Product'))
+    @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async deleteProduct(req: Request): Promise<Product> {
         return await ProductsModel.destroy({ where: { id: req.body.id } });

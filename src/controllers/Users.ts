@@ -9,13 +9,19 @@ import * as bcrypt from 'bcryptjs';
 export default class UsersController {
     @Authorize()
     @Get('s')
-    @Summary('Summary of this route')
-    @Description('Return a user from the given id')
+    @Summary('Returns all saved users')
+    @Description('Returns all saved users')
+    @(Returns(200).Description('All Users'))
+    @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async findAll(): Promise<User[]> {
         return (await UserModel.findAll()).map((user: User) => user as User);
     }
 
+    @Summary('Log in using JWT')
+    @Description('Log the user using a JWT')
+    @(Returns(200).Description('Auth Ok!'))
+    @(Returns(404).Description('Not found'))
     @Post('/login')
     async login(req: Request): Promise<LoginResponse> {
         const { email, pass } = req.body;
