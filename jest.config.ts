@@ -1,5 +1,4 @@
-// eslint-disable-next-line node/exports-style
-module.exports = {
+export default {
     clearMocks: true,
     collectCoverage: true,
     coverageDirectory: 'coverage',
