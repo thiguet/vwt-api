@@ -1,5 +1,8 @@
 {
     "defaultSeverity": "error",
+    "linterOptions": {
+        "exclude": ["node_modules"]
+    },
     "extends": ["tslint:recommended"],
     "jsRules": {},
     "rules": {
