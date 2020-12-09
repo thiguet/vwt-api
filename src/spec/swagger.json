@@ -11,9 +11,38 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Try login VWT using a Google Account",
+        "summary": "Try login in VWT using a Google Account",
         "tags": [
           "LoginController"
         ]
@@ -25,9 +54,28 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Callback to return a User for the app",
+        "summary": "Callback to return a User for the VWT using the Google return",
         "tags": [
           "LoginController"
         ]
@@ -39,9 +87,38 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Log in VWT using a Facebook Account",
+        "summary": "Log in in VWT using a Facebook Account",
         "tags": [
           "LoginController"
         ]
@@ -53,9 +130,28 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Callback to return a User for the app",
+        "summary": "Callback to return a User for the VWT using the Facebook return",
         "tags": [
           "LoginController"
         ]
@@ -67,9 +163,38 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Log in VWT using a Instagram Account",
+        "summary": "Log in in VWT using a Instagram Account",
         "tags": [
           "LoginController"
         ]
@@ -81,9 +206,28 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Callback to return a User for the app",
+        "summary": "Callback to return a User for the VWT using the Instagram return",
         "tags": [
           "LoginController"
         ]
@@ -103,6 +247,16 @@
               }
             },
             "description": "Products"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
           },
           "404": {
             "content": {
@@ -146,6 +300,16 @@
             },
             "description": "One Product"
           },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
           "404": {
             "content": {
               "application/json": {
@@ -179,6 +343,16 @@
             },
             "description": "One Product"
           },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
           "404": {
             "content": {
               "application/json": {
@@ -209,6 +383,16 @@
               }
             },
             "description": "One Product"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
           },
           "404": {
             "content": {
@@ -241,6 +425,16 @@
             },
             "description": "One Product"
           },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
           "404": {
             "content": {
               "application/json": {
@@ -264,6 +458,26 @@
         "operationId": "usersControllerFindAll",
         "parameters": [],
         "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "All Users"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
           "404": {
             "content": {
               "application/json": {
@@ -275,8 +489,8 @@
             "description": "Not found"
           }
         },
-        "description": "Return a user from the given id",
-        "summary": "Summary of this route",
+        "description": "Returns all saved users",
+        "summary": "Returns all saved users",
         "tags": [
           "UsersController"
         ]
@@ -288,9 +502,28 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success"
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
           }
         },
+        "description": "Log the user using a JWT",
+        "summary": "Log in using JWT",
         "tags": [
           "UsersController"
         ]
@@ -366,6 +599,46 @@
         "required": [
           "name",
           "message"
+        ]
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The error name",
+            "example": "UNAUTHORIZED",
+            "default": "UNAUTHORIZED"
+          },
+          "message": {
+            "type": "string",
+            "description": "An error message"
+          },
+          "status": {
+            "type": "number",
+            "description": "The status code of the exception",
+            "example": 401,
+            "default": 401
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenericError"
+            },
+            "description": "A list of related errors"
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The stack trace (only in development mode)"
+          }
+        },
+        "required": [
+          "name",
+          "message",
+          "status"
         ]
       }
     }
