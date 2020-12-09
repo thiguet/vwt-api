@@ -21,7 +21,7 @@ const SECRET = process.env.SECRET || '';
         {
             path: '/v1/docs',
             specVersion: '3.0.3',
-            outFile: `${rootDir}/spec/swagger.json`,
+            outFile: `${rootDir}/swagger.json`,
         },
     ],
     mount: {
