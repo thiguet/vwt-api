@@ -7,12 +7,14 @@ passport.use(
         {
             clientID: `${process.env.GOOGLE_CLIENT_ID}`,
             clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,
-            callbackURL: '/auth/google/callback',
+            callbackURL: `${process.env.REDIRECT_BASE_URL}/auth/google/callback`,
+            passReqToCallback: true,
         },
-        async (_accessToken, _refreshToken, profile) => {
+        async (_req, _accessToken, _refreshToken, profile, done) => {
             const email: string = (profile.emails || [])[0].value;
             const name: string = profile.displayName || (profile.name || {}).givenName || '';
-            return handleUserLogin(profile.id, email, name);
+            const user = await handleUserLogin(profile.id, email, name);
+            return done(undefined, user);
         }
     )
 );

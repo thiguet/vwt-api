@@ -6,13 +6,14 @@ passport.use(
     new Strategy(
         {
             clientID: `${process.env.FACEBOOK_CLIENT_ID}`,
-            clientSecret: `${process.env.FACEBOOK_APP_SECRET}`,
-            callbackURL: '/auth/facebook/callback',
+            clientSecret: `${process.env.FACEBOOK_CLIENT_SECRET}`,
+            callbackURL: `${process.env.REDIRECT_BASE_URL}/auth/facebook/callback`,
         },
-        (_accessToken: any, _refreshToken: any, profile: any) => {
+        async (_accessToken, _refreshToken, profile, done) => {
             const email: string = (profile.emails || [])[0].value;
             const name: string = profile.displayName || (profile.name || {}).givenName || '';
-            return handleUserLogin(profile.id, email, name);
+            const user = await handleUserLogin(profile.id, email, name);
+            return done(undefined, user);
         }
     )
 );

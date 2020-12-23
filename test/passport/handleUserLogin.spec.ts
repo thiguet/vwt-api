@@ -29,7 +29,7 @@ describe('handleUserLogin Controller', () => {
     afterEach(PlatformTest.reset);
 
     it('should get a user.', async () => {
-        jest.spyOn(UserModel, 'findOrCreate').mockReturnValue(user as any);
+        jest.spyOn(UserModel, 'findOrCreate').mockResolvedValue([user, false]);
         expect(await handleUserLogin(params.id, params.email, params.name)).toEqual(user);
         expect(UserModel.findOrCreate).toHaveBeenCalledWith({
             where: { appId: params.id },
@@ -38,7 +38,7 @@ describe('handleUserLogin Controller', () => {
     });
 
     it('must fail if a user is not returned', async () => {
-        jest.spyOn(UserModel, 'findOrCreate').mockReturnValue(false);
+        jest.spyOn(UserModel, 'findOrCreate').mockResolvedValue([false, false]);
         expect(await handleUserLogin(params.id, params.email, params.name)).toEqual(false);
         expect(UserModel.findOrCreate).toHaveBeenCalledWith({
             where: { appId: params.id },
