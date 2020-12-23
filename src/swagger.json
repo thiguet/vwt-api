@@ -5,10 +5,19 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/auth/google": {
+    "/auth/{provider}": {
       "get": {
-        "operationId": "loginControllerLoginGoogle",
-        "parameters": [],
+        "operationId": "loginControllerLoginApp",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "provider",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -41,17 +50,26 @@
             "description": "Not found"
           }
         },
-        "description": "Try login VWT using a Google Account",
-        "summary": "Try login in VWT using a Google Account",
+        "description": "Log in VWT using an available app account",
+        "summary": "Log in in VWT using an app account, such as Twitter, Facebook or Google",
         "tags": [
           "LoginController"
         ]
       }
     },
-    "/auth/google/callback": {
+    "/auth/{provider}/callback": {
       "get": {
-        "operationId": "loginControllerCallbackGoogle",
-        "parameters": [],
+        "operationId": "loginControllerAppCallback",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "provider",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -75,159 +93,7 @@
           }
         },
         "description": "Callback to return a User for the app",
-        "summary": "Callback to return a User for the VWT using the Google return",
-        "tags": [
-          "LoginController"
-        ]
-      }
-    },
-    "/auth/facebook": {
-      "get": {
-        "operationId": "loginControllerLoginFacebook",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Auth Ok!"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotFound"
-                }
-              }
-            },
-            "description": "Not found"
-          }
-        },
-        "description": "Log in VWT using a Facebook Account",
-        "summary": "Log in in VWT using a Facebook Account",
-        "tags": [
-          "LoginController"
-        ]
-      }
-    },
-    "/auth/facebook/callback": {
-      "get": {
-        "operationId": "loginControllerCallbackFacebook",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Auth Ok!"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotFound"
-                }
-              }
-            },
-            "description": "Not found"
-          }
-        },
-        "description": "Callback to return a User for the app",
-        "summary": "Callback to return a User for the VWT using the Facebook return",
-        "tags": [
-          "LoginController"
-        ]
-      }
-    },
-    "/auth/instagram": {
-      "get": {
-        "operationId": "loginControllerLoginInstagram",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Auth Ok!"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotFound"
-                }
-              }
-            },
-            "description": "Not found"
-          }
-        },
-        "description": "Log in VWT using a Instagram Account",
-        "summary": "Log in in VWT using a Instagram Account",
-        "tags": [
-          "LoginController"
-        ]
-      }
-    },
-    "/auth/instagram/callback": {
-      "get": {
-        "operationId": "loginControllerCallbackInstagram",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Auth Ok!"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotFound"
-                }
-              }
-            },
-            "description": "Not found"
-          }
-        },
-        "description": "Callback to return a User for the app",
-        "summary": "Callback to return a User for the VWT using the Instagram return",
+        "summary": "Callback to return a User for the VWT using a Google account",
         "tags": [
           "LoginController"
         ]
