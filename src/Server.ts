@@ -11,10 +11,20 @@ import '@tsed/ajv';
 import '@tsed/platform-express';
 import '@tsed/passport';
 import '@tsed/swagger';
+import passport from 'passport';
 export const rootDir = __dirname;
 
 const SECRET = process.env.SECRET || '';
 
+passport.serializeUser(function (user, done) {
+    console.log('serializeUser');
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    console.log('deserializeUser');
+    done(null, user);
+});
 @Configuration({
     rootDir,
     swagger: [
@@ -42,7 +52,11 @@ export class Server {
 
     $beforeRoutesInit() {
         this.app
-            .use(cors())
+            .use(
+                cors({
+                    origin: '*',
+                })
+            )
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())
