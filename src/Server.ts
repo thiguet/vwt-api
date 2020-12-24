@@ -16,13 +16,11 @@ export const rootDir = __dirname;
 
 const SECRET = process.env.SECRET || '';
 
-passport.serializeUser(function (user, done) {
-    console.log('serializeUser');
+passport.serializeUser((user, done) => {
     done(null, user);
 });
 
-passport.deserializeUser(function (user, done) {
-    console.log('deserializeUser');
+passport.deserializeUser((user, done) => {
     done(null, user);
 });
 @Configuration({
