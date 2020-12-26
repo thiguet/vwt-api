@@ -5,24 +5,16 @@ import compress from 'compression';
 import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
-import session from 'express-session';
+import cookieSession from 'cookie-session';
 import 'dotenv/config';
 import '@tsed/ajv';
 import '@tsed/platform-express';
 import '@tsed/passport';
 import '@tsed/swagger';
-import passport from 'passport';
 export const rootDir = __dirname;
 
 const SECRET = process.env.SECRET || '';
 
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-    done(null, user);
-});
 @Configuration({
     rootDir,
     swagger: [
@@ -36,7 +28,6 @@ passport.deserializeUser((user, done) => {
         '/': [`${rootDir}/controllers/**/*.ts`],
     },
     componentsScan: [`${rootDir}/passport/**/*.ts`],
-    passport: {},
     acceptMimes: ['application/json'],
     httpPort: process.env.PORT || 8080,
     exclude: ['**/*.spec.ts'],
@@ -52,7 +43,9 @@ export class Server {
         this.app
             .use(
                 cors({
-                    origin: '*',
+                    origin: ['http://localhost:8080'],
+                    credentials: true,
+                    exposedHeaders: ['set-cookie', 'cookie'],
                 })
             )
             .use(cookieParser())
@@ -65,15 +58,10 @@ export class Server {
                 })
             )
             .use(
-                session({
-                    secret: SECRET,
-                    resave: true,
-                    saveUninitialized: true,
-                    cookie: {
-                        path: '/',
-                        httpOnly: true,
-                        secure: false,
-                    },
+                cookieSession({
+                    name: 'VWT',
+                    keys: [SECRET],
+                    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
                 })
             );
     }
