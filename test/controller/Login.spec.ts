@@ -5,7 +5,7 @@ import { User } from '../../src/controllers/models';
 
 jest.mock('passport-facebook');
 jest.mock('passport-google-oauth20');
-jest.mock('passport-twitter');
+jest.mock('passport-github');
 jest.mock('../../src/passport/handleUserLogin');
 jest.mock('../../src/sqlz/models/User.model');
 
