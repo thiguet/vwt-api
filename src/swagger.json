@@ -5,19 +5,10 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/auth/{provider}": {
+    "/auth/facebook": {
       "get": {
-        "operationId": "loginControllerLoginApp",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "provider",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "operationId": "loginControllerLoginFacebook",
+        "parameters": [],
         "responses": {
           "200": {
             "content": {
@@ -50,26 +41,17 @@
             "description": "Not found"
           }
         },
-        "description": "Log in VWT using an available app account",
-        "summary": "Log in in VWT using an app account, such as Twitter, Facebook or Google",
+        "description": "Log in in VWT using a Facebook account",
+        "summary": "Log in in VWT using a Facebook account",
         "tags": [
           "LoginController"
         ]
       }
     },
-    "/auth/{provider}/callback": {
+    "/auth/facebook/callback": {
       "get": {
-        "operationId": "loginControllerAppCallback",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "provider",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "operationId": "loginControllerCallbackFacebook",
+        "parameters": [],
         "responses": {
           "200": {
             "content": {
@@ -93,7 +75,159 @@
           }
         },
         "description": "Callback to return a User for the app",
+        "summary": "Callback to return a User for the VWT using a Facebook account",
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "operationId": "loginControllerLoginGoogle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Log in in VWT using a Google account",
+        "summary": "Log in in VWT using a Google account",
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "operationId": "loginControllerCallbackGoogle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Callback to return a User for the VWT using a Google account",
         "summary": "Callback to return a User for the VWT using a Google account",
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/github": {
+      "get": {
+        "operationId": "loginControllerGithub",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Log in in VWT using a Github account",
+        "summary": "Log in in VWT using a Github account",
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
+    "/auth/github/callback": {
+      "get": {
+        "operationId": "loginControllerCallbackGithub",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Auth Ok!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Callback to return a User for the VWT using a Github account",
+        "summary": "Callback to return a User for the VWT using a Github account",
         "tags": [
           "LoginController"
         ]
@@ -140,9 +274,50 @@
         "tags": [
           "ProductsController"
         ]
+      },
+      "post": {
+        "operationId": "productsControllerNewProduct",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One Product"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Saves and returns one product with the id property setted",
+        "summary": "Add one product",
+        "tags": [
+          "ProductsController"
+        ]
       }
     },
-    "/product/{id}": {
+    "/products/{id}": {
       "get": {
         "operationId": "productsControllerFindByPk",
         "parameters": [
@@ -192,53 +367,19 @@
         "tags": [
           "ProductsController"
         ]
-      }
-    },
-    "/product": {
-      "post": {
-        "operationId": "productsControllerNewProduct",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            },
-            "description": "One Product"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Unauthorized"
-                }
-              }
-            },
-            "description": "Unauthorized"
-          },
-          "404": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotFound"
-                }
-              }
-            },
-            "description": "Not found"
-          }
-        },
-        "description": "Saves and returns one product with the id property setted",
-        "summary": "Add one product",
-        "tags": [
-          "ProductsController"
-        ]
       },
       "put": {
         "operationId": "productsControllerUpdateProduct",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -279,7 +420,16 @@
       },
       "delete": {
         "operationId": "productsControllerDeleteProduct",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {

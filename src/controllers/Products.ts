@@ -1,13 +1,13 @@
-import { Controller, Delete, Get, Post, Put, Request } from '@tsed/common';
-import { Authorize } from '@tsed/passport';
+import { Controller, Delete, Get, PathParams, Post, Put, Request } from '@tsed/common';
 import { Description, Returns, Summary } from '@tsed/schema';
 import { Product } from './models';
 import ProductsModel from '../sqlz/models/Product.model';
+import { Authorize } from '@tsed/passport';
 
-@Controller('/product')
+@Controller('/products')
 export default class ProductsController {
     @Authorize()
-    @Get('s')
+    @Get('/')
     @Summary('Gets all products')
     @Description('Returns all the products')
     @(Returns(200).Description('Products'))
@@ -17,18 +17,16 @@ export default class ProductsController {
         return (await ProductsModel.findAll()).map((product: Product) => product);
     }
 
-    @Authorize()
     @Get('/:id')
     @Summary('Gets one product')
     @Description('Returns one product by id via GET params')
     @(Returns(200).Description('One Product'))
     @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
-    async findByPk(req: Request): Promise<Product> {
-        return await ProductsModel.findByPk(req.params.id);
+    async findByPk(@PathParams('id') id: string): Promise<Product> {
+        return await ProductsModel.findByPk(id);
     }
 
-    @Authorize()
     @Post()
     @Summary('Add one product')
     @Description('Saves and returns one product with the id property setted')
@@ -40,8 +38,7 @@ export default class ProductsController {
         return await ProductsModel.create(product);
     }
 
-    @Authorize()
-    @Put()
+    @Put('/:id')
     @Summary('Update one product')
     @Description('Saves and returns the product updating old properties')
     @(Returns(200).Description('One Product'))
@@ -56,14 +53,15 @@ export default class ProductsController {
         });
     }
 
-    @Authorize()
-    @Delete()
+    @Delete('/:id')
     @Summary('Deletes one product')
     @Description('Delete the product from the database')
     @(Returns(200).Description('One Product'))
     @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
-    async deleteProduct(req: Request): Promise<Product> {
-        return await ProductsModel.destroy({ where: { id: req.body.id } });
+    async deleteProduct(@PathParams('id') id: string): Promise<Product> {
+        const product = await ProductsModel.findByPk(id);
+        await ProductsModel.destroy({ where: { id } });
+        return product;
     }
 }
