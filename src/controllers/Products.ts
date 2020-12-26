@@ -17,6 +17,7 @@ export default class ProductsController {
         return (await ProductsModel.findAll()).map((product: Product) => product);
     }
 
+    @Authorize()
     @Get('/:id')
     @Summary('Gets one product')
     @Description('Returns one product by id via GET params')
@@ -27,6 +28,7 @@ export default class ProductsController {
         return await ProductsModel.findByPk(id);
     }
 
+    @Authorize()
     @Post()
     @Summary('Add one product')
     @Description('Saves and returns one product with the id property setted')
@@ -38,6 +40,7 @@ export default class ProductsController {
         return await ProductsModel.create(product);
     }
 
+    @Authorize()
     @Put('/:id')
     @Summary('Update one product')
     @Description('Saves and returns the product updating old properties')
@@ -53,6 +56,7 @@ export default class ProductsController {
         });
     }
 
+    @Authorize()
     @Delete('/:id')
     @Summary('Deletes one product')
     @Description('Delete the product from the database')

@@ -11,7 +11,7 @@ export default class Products extends Model<Products> {
     name!: string;
 
     @Column
-    measures!: string;
+    measure!: string;
 
     @Column
     qtd!: number;

@@ -13,16 +13,12 @@ import { Args, OnInstall, OnVerify, Protocol } from '@tsed/passport';
     },
 })
 export class GoogleProtocol implements OnVerify, OnInstall {
-    async $onVerify(@Req() req: Req, @Args() [_accessToken, _refreshToken, profile]: any) {
-        if (!req.isAuthenticated()) {
-            const email: string = (profile.emails || [])[0].value;
-            const name: string = profile.displayName || (profile.name || {}).givenName || '';
-            const user = await handleUserLogin(profile.id, email, name);
+    async $onVerify(@Req() _req: Req, @Args() [_accessToken, _refreshToken, profile]: any) {
+        const email: string = (profile.emails || [])[0].value;
+        const name: string = profile.displayName || (profile.name || {}).givenName || '';
+        const user = await handleUserLogin(profile.id, email, name);
 
-            return user ? user : false;
-        } else {
-            return req.user;
-        }
+        return user ? user : false;
     }
 
     $onInstall() {}
