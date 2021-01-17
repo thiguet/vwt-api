@@ -1,9 +1,3 @@
-// export enum UserRoute {
-//     login = 'login',
-// }
-
-// type Diff<T, U> = T extends U ? never : T;
-
 export interface User {
     id: string;
     name: string;
@@ -11,18 +5,37 @@ export interface User {
     pass: string;
 }
 
+export enum Measures {
+    KG = 'KG',
+    G = 'G',
+    L = 'L',
+    UN = 'UN',
+}
+
 export interface Product {
     id: string;
     name: string;
     qtd: number;
     minQtd: number;
+    measure: Measures;
     image?: string;
 }
-
-// export type UserResponse = Diff<User, 'id' | 'pass'>;
-
 export interface LoginResponse {
     auth: boolean;
     token?: string;
     error?: string;
 }
+
+export interface MeasuresReportItem {
+    measureName: string;
+    measureQuantity: number;
+}
+
+export interface QuantityReportItem {
+    productName: string;
+    productQuantity: number;
+}
+
+export type MeasuresReport = MeasuresReportItem[];
+
+export type QuantityReport = QuantityReportItem[];
