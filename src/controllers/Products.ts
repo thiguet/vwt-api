@@ -14,7 +14,7 @@ export default class ProductsController {
     @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async findAll(): Promise<Product[]> {
-        return (await ProductsModel.findAll()).map((product: Product) => product);
+        return await ProductsModel.findAll();
     }
 
     @Authorize()
@@ -36,8 +36,7 @@ export default class ProductsController {
     @(Returns(401).Description('Unauthorized'))
     @(Returns(404).Description('Not found'))
     async newProduct(req: Request): Promise<Product> {
-        const { product } = req.body;
-        return await ProductsModel.create(product);
+        return await ProductsModel.create(req.body.product);
     }
 
     @Authorize()
@@ -49,7 +48,7 @@ export default class ProductsController {
     @(Returns(404).Description('Not found'))
     async updateProduct(req: Request): Promise<Product> {
         const { product } = req.body;
-        return await ProductsModel.update(product, {
+        return await ProductsModel.update(req.body.product, {
             where: {
                 id: product.id,
             },

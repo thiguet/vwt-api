@@ -1,27 +1,11 @@
 import { PlatformTest, Req } from '@tsed/common';
-import faker from 'faker';
-import { Product } from '../../src/controllers/models';
 import ProductsController from '../../src/controllers/Products';
 import ProductsModel from '../../src/sqlz/models/Product.model';
+import { getFakeProduct, getFakeProductArray } from '../util/ProductFactory';
 
 describe('Products Controller', () => {
-    const qtd = faker.random.number({ min: 0, max: 1000 });
-    const minQtd = faker.random.number({ min: 0, max: 5 });
-
-    let products: Product[] = [...Array(faker.random.number({ min: 1, max: 50 }))].map((_aux, i) => ({
-        id: faker.random.uuid(),
-        name: faker.name.findName(),
-        qtd,
-        minQtd,
-        image: i % 2 === 0 ? faker.image.imageUrl() : undefined,
-    }));
-    let product: Product = {
-        id: faker.random.uuid(),
-        name: faker.name.findName(),
-        qtd,
-        minQtd,
-        image: faker.image.imageUrl(),
-    };
+    let products = getFakeProductArray();
+    let product = getFakeProduct();
     let service: ProductsController;
 
     beforeEach(async () => {
@@ -37,13 +21,7 @@ describe('Products Controller', () => {
 
     it('GET /product/:id - should return a product by id.', async () => {
         jest.spyOn(ProductsModel, 'findByPk').mockReturnValue(product);
-        const req = {
-            params: {
-                id: product.id,
-            },
-        };
-
-        expect(await service.findByPk((req as unknown) as Req)).toEqual(product);
+        expect(await service.findByPk(product.id)).toEqual(product);
     });
 
     it('POST /product - should add a product by id.', async () => {
@@ -75,13 +53,7 @@ describe('Products Controller', () => {
 
     it('DELETE /product - should delete a product by id.', async () => {
         jest.spyOn(ProductsModel, 'destroy').mockReturnValue(product);
-        const req = {
-            body: {
-                id: product.id,
-            },
-        };
-
-        expect(await service.deleteProduct((req as unknown) as Req)).toEqual({
+        expect(await service.deleteProduct(product.id)).toEqual({
             ...product,
         });
     });
