@@ -1,12 +1,12 @@
-import { PlatformTest, Req, Res } from '@tsed/common';
+import { PlatformTest, Req } from '@tsed/common';
 import LoginController from '../../src/controllers/Login';
 import faker from 'faker';
 import { User } from '../../src/controllers/models';
+import UserModel from '../../src/sqlz/models/User.model';
 
 jest.mock('passport-facebook');
 jest.mock('passport-google-oauth20');
 jest.mock('passport-github');
-jest.mock('../../src/passport/handleUserLogin');
 jest.mock('../../src/sqlz/models/User.model');
 
 describe('Login Controller', () => {
@@ -18,39 +18,36 @@ describe('Login Controller', () => {
     };
     let service: LoginController;
     let req: any;
-    let res: any;
 
     beforeEach(async () => {
         PlatformTest.create();
         service = await PlatformTest.invoke<LoginController>(LoginController);
         req = {
-            user,
+            ...user,
         };
 
-        res = {
-            redirect: jest.fn(),
-        };
+        ((UserModel as unknown) as jest.Mock<any>).mockResolvedValue(user);
     });
 
     afterEach(PlatformTest.reset);
 
-    it('should return user when using any app strategy.', async () => {
-        await service.loginApp(req as Req, res as Res);
-        expect(res.redirect).toBeCalled();
+    it('should return user when using Google strategy.', async () => {
+        expect(await service.loginGoogle(req as Req)).toStrictEqual(user as any);
     });
-    it('fails when no user is returned.', async () => {
-        req = false;
-        await service.loginApp(req as Req, res as Res);
-        expect(res.redirect).toBeCalled();
+    it('should return user when using Facebook strategy.', async () => {
+        expect(await service.loginFacebook(req as Req)).toStrictEqual(user as any);
+    });
+    it('should return user when using Github strategy.', async () => {
+        expect(await service.loginGithub(req as Req)).toStrictEqual(user as any);
     });
 
-    it('should return user in the callback when using any app strategy.', async () => {
-        await service.appCallback(req as Req, res as Res);
-        expect(res.redirect).toBeCalled();
+    it('should return user in the callback when using Github app strategy.', async () => {
+        expect(await service.callbackGithub(req as Req)).toStrictEqual(user as any);
     });
-    it('fails when no user is returned.', async () => {
-        req = false;
-        await service.appCallback(req as Req, res as Res);
-        expect(res.redirect).toBeCalled();
+    it('should return user in the callback when using Facebook app strategy.', async () => {
+        expect(await service.callbackFacebook(req as Req)).toStrictEqual(user as any);
+    });
+    it('should return user in the callback when using Google app strategy.', async () => {
+        expect(await service.callbackGoogle(req as Req)).toStrictEqual(user as any);
     });
 });

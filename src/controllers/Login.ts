@@ -71,7 +71,7 @@ export default class LoginController {
         scope: ['email'],
         passReqToCallback: true,
     })
-    github(@Req('user') user: Req) {
+    loginGithub(@Req('user') user: Req) {
         return user;
     }
 
