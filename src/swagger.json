@@ -159,7 +159,7 @@
     },
     "/auth/github": {
       "get": {
-        "operationId": "loginControllerGithub",
+        "operationId": "loginControllerLoginGithub",
         "parameters": [],
         "responses": {
           "200": {
@@ -464,6 +464,92 @@
         },
         "description": "Delete the product from the database",
         "summary": "Deletes one product",
+        "tags": [
+          "ProductsController"
+        ]
+      }
+    },
+    "/reports/measures": {
+      "get": {
+        "operationId": "productsControllerFindMeasuresReport",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Measures Report Data"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Gets the measures report data",
+        "summary": "Gets the measure report data",
+        "tags": [
+          "ProductsController"
+        ]
+      }
+    },
+    "/reports/quantity": {
+      "get": {
+        "operationId": "productsControllerFindQuantityReport",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Quantity Report Data"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Gets the measures report data",
+        "summary": "Gets the quantity report data",
         "tags": [
           "ProductsController"
         ]
