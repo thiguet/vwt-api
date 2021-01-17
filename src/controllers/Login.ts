@@ -87,4 +87,13 @@ export default class LoginController {
     callbackGithub(@Req('user') user: Req) {
         return user;
     }
+
+    @Summary('Logs user out')
+    @Description('Logs user out')
+    @(Returns(200).Description('Logged Out!'))
+    @(Returns(404).Description('Not found'))
+    @Get('/logout')
+    logout(@Req() req: Req) {
+        req.logout();
+    }
 }

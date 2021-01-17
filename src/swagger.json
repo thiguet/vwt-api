@@ -233,6 +233,39 @@
         ]
       }
     },
+    "/auth/logout": {
+      "get": {
+        "operationId": "loginControllerLogout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Logged Out!"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFound"
+                }
+              }
+            },
+            "description": "Not found"
+          }
+        },
+        "description": "Logs user out",
+        "summary": "Logs user out",
+        "tags": [
+          "LoginController"
+        ]
+      }
+    },
     "/products": {
       "get": {
         "operationId": "productsControllerFindAll",

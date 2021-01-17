@@ -31,6 +31,13 @@ describe('Login Controller', () => {
 
     afterEach(PlatformTest.reset);
 
+    it('should call logout user fn.', async () => {
+        req = {
+            logout: jest.fn(),
+        };
+        await service.logout(req as Req);
+        expect(req.logout).toBeCalled();
+    });
     it('should return user when using Google strategy.', async () => {
         expect(await service.loginGoogle(req as Req)).toStrictEqual(user as any);
     });
