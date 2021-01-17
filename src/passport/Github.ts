@@ -1,5 +1,5 @@
 import { Req } from '@tsed/common';
-import { Args, OnInstall, OnVerify, Protocol } from '@tsed/passport';
+import { Args, OnVerify, Protocol } from '@tsed/passport';
 import { Strategy, StrategyOptions } from 'passport-github';
 import handleUserLogin from './handleUserLogin';
 
@@ -12,7 +12,7 @@ import handleUserLogin from './handleUserLogin';
         callbackURL: `${process.env.REDIRECT_BASE_URL}/auth/github/callback`,
     },
 })
-export class GithubProtocol implements OnVerify, OnInstall {
+export class GithubProtocol implements OnVerify {
     async $onVerify(@Req() req: Req, @Args() [_accessToken, _refreshToken, profile]: any) {
         if (!req.isAuthenticated()) {
             const email: string = (profile.emails || [])[0].value;
@@ -24,6 +24,4 @@ export class GithubProtocol implements OnVerify, OnInstall {
             return req.user;
         }
     }
-
-    $onInstall() {}
 }

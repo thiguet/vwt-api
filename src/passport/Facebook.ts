@@ -1,5 +1,5 @@
 import { Req } from '@tsed/common';
-import { Args, OnInstall, OnVerify, Protocol } from '@tsed/passport';
+import { Args, OnVerify, Protocol } from '@tsed/passport';
 import { Strategy, StrategyOption } from 'passport-facebook';
 import handleUserLogin from './handleUserLogin';
 @Protocol<StrategyOption>({
@@ -12,7 +12,7 @@ import handleUserLogin from './handleUserLogin';
         profileFields: ['id', 'emails', 'name'],
     },
 })
-export class FacebookProtocol implements OnVerify, OnInstall {
+export class FacebookProtocol implements OnVerify {
     async $onVerify(@Req() req: Req, @Args() [_accessToken, _refreshToken, profile]: any) {
         if (!req.isAuthenticated()) {
             const email: string = (profile.emails || [])[0].value;
@@ -24,6 +24,4 @@ export class FacebookProtocol implements OnVerify, OnInstall {
             return req.user;
         }
     }
-
-    $onInstall() {}
 }
